@@ -1,136 +1,219 @@
-# Telegram Reminder Bot
+# 🤖 Telegram Reminder Bot
 
-A simple and efficient Telegram bot that helps you set reminders for important tasks. The bot supports various time formats and persists reminders across bot restarts.
+A powerful Telegram bot that helps you set reminders with advanced repeat functionality (daily, weekly, monthly). Built with Python and the python-telegram-bot library.
 
-## Features
+## ✨ Features
 
-- ⏰ Set reminders with flexible time formats (seconds, minutes, hours, days)
-- 📋 View all pending reminders with remaining time
-- 💾 Persistent storage - reminders survive bot restarts
-- 🎨 Beautiful Markdown formatting with emojis
-- 🔒 Secure token handling via environment variables
-- 🛡️ Error handling and input validation
-- 📱 Custom keyboard for easy navigation
+### 🔔 Reminder Types
+- **One-time reminders** - Set reminders that trigger once
+- **Daily reminders** - Repeating reminders every 24 hours
+- **Weekly reminders** - Repeating reminders every 7 days
+- **Monthly reminders** - Repeating reminders every 30 days
 
-## Time Formats
+### 🎯 Key Features
+- ✅ Easy-to-use command interface
+- ✅ Customizable keyboard buttons
+- ✅ Persistent storage (reminders survive bot restarts)
+- ✅ Flexible time formats (seconds, minutes, hours, days)
+- ✅ Separate management for one-time and repeating reminders
+- ✅ Automatic cleanup of expired reminders
+- ✅ Error handling and user-friendly messages
 
-- `30s` - 30 seconds
-- `5m` - 5 minutes  
-- `2h` - 2 hours
-- `1d` - 1 day
+## 🚀 Quick Start
 
-## Setup
+### Prerequisites
+- Python 3.8 or higher
+- A Telegram Bot Token (get it from [@BotFather](https://t.me/botfather))
 
-### 1. Create a Telegram Bot
+### Installation
 
-1. Message [@BotFather](https://t.me/botfather) on Telegram
-2. Send `/newbot` and follow the instructions
-3. Copy your bot token
+1. **Clone the repository**
+   ```bash
+   git clone <your-repository-url>
+   cd tg
+   ```
 
-### 2. Install Dependencies
+2. **Create virtual environment**
+   ```bash
+   python -m venv .venv
+   ```
 
-```bash
-pip install -r requirements.txt
-```
+3. **Activate virtual environment**
+   ```bash
+   # Windows
+   .\.venv\Scripts\activate
+   
+   # Linux/Mac
+   source .venv/bin/activate
+   ```
 
-### 3. Set Environment Variable (Recommended)
+4. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-For security, set your bot token as an environment variable:
+5. **Set your bot token** (optional)
+   ```bash
+   # Set environment variable
+   set TELEGRAM_BOT_TOKEN=your_bot_token_here
+   
+   # Or edit main.py and replace the default token
+   ```
 
-**Windows:**
-```cmd
-set TELEGRAM_BOT_TOKEN=your_bot_token_here
-```
+6. **Run the bot**
+   ```bash
+   # Using the provided scripts
+   run_bot.bat          # Windows
+   ./run_bot.ps1        # PowerShell
+   
+   # Or directly
+   python main.py
+   ```
 
-**Linux/Mac:**
-```bash
-export TELEGRAM_BOT_TOKEN=your_bot_token_here
-```
+## 📱 Usage
 
-**Or create a `.env` file:**
-```
-TELEGRAM_BOT_TOKEN=your_bot_token_here
-```
+### Available Commands
 
-### 4. Run the Bot
+| Command | Description | Example |
+|---------|-------------|---------|
+| `/start` | Welcome message and help | `/start` |
+| `/help` | Show help information | `/help` |
+| `/remind` | Set one-time reminder | `/remind 10m Take out trash` |
+| `/daily` | Set daily repeating reminder | `/daily 9h Good morning!` |
+| `/weekly` | Set weekly repeating reminder | `/weekly 1d Weekly report` |
+| `/monthly` | Set monthly repeating reminder | `/monthly 1d Pay rent` |
+| `/reminders` | View one-time reminders | `/reminders` |
+| `/repeats` | View repeating reminders | `/repeats` |
 
-```bash
-python main.py
-```
+### Time Formats
 
-## Usage
-
-### Commands
-
-- `/start` - Welcome message and help
-- `/help` - Show help information
-- `/remind <time> <message>` - Set a reminder
-- `/reminders` - View all pending reminders
+| Format | Description | Examples |
+|--------|-------------|----------|
+| `s` | Seconds | `30s`, `1s` |
+| `m` | Minutes | `5m`, `30m` |
+| `h` | Hours | `2h`, `12h` |
+| `d` | Days | `1d`, `7d` |
 
 ### Examples
 
+**One-time reminders:**
 ```
 /remind 10m Take out the trash
 /remind 2h Call mom
-/remind 1d Pay bills
-/remind 30s Test reminder
+/remind 1d Submit report
 ```
 
-## File Structure
+**Repeating reminders:**
+```
+/daily 9h Good morning!
+/weekly 1d Weekly team meeting
+/monthly 1d Pay rent
+```
+
+## 🏗️ Project Structure
 
 ```
 tg/
-├── main.py              # Main bot code
+├── main.py              # Main bot application
 ├── requirements.txt     # Python dependencies
-├── README.md           # This file
-└── reminders.json      # Persistent reminder storage (created automatically)
+├── README.md           # Project documentation
+├── .gitignore          # Git ignore rules
+├── run_bot.bat         # Windows batch script
+├── run_bot.ps1         # PowerShell script
+├── reminders.json      # Reminder storage (auto-generated)
+└── .venv/              # Virtual environment (not in git)
 ```
 
-## Features in Detail
+## 🔧 Configuration
 
-### Persistent Storage
-Reminders are automatically saved to `reminders.json` and restored when the bot restarts.
+### Environment Variables
 
-### Input Validation
-- Time must be at least 1 second
-- Time cannot exceed 1 year
-- Proper time format validation
+- `TELEGRAM_BOT_TOKEN`: Your Telegram bot token (optional, has default)
 
-### User-Friendly Output
-- Time displayed in human-readable format (e.g., "5 minutes" instead of "300 seconds")
-- Exact trigger time shown
-- Beautiful formatting with emojis and Markdown
+### Bot Token Setup
 
-### Error Handling
-- Graceful error handling for network issues
-- Input validation with helpful error messages
-- Automatic cleanup of expired reminders
+1. Message [@BotFather](https://t.me/botfather) on Telegram
+2. Send `/newbot` and follow the instructions
+3. Copy the token and set it as an environment variable or replace the default in `main.py`
 
-## Security Notes
+## 📊 Data Storage
 
-- The bot token is loaded from environment variables for security
-- If no environment variable is set, it falls back to the hardcoded token (not recommended for production)
-- User data is stored locally in JSON format
+Reminders are stored in `reminders.json` with the following structure:
 
-## Troubleshooting
+```json
+{
+  "user_id": [
+    {
+      "text": "Reminder message",
+      "time": 1234567890.123,
+      "id": "unique_reminder_id",
+      "repeat": "daily|weekly|monthly|null",
+      "original_seconds": 3600
+    }
+  ]
+}
+```
 
-### Bot not responding
-1. Check if the bot token is correct
-2. Ensure the bot is running without errors
-3. Try sending `/start` to the bot
+## 🛠️ Development
 
-### Reminders not working
-1. Check if the bot has permission to send messages
-2. Verify the time format is correct
-3. Check the console for error messages
+### Running in Development
 
-### Permission denied errors
-Make sure the bot has write permissions in the directory for creating `reminders.json`.
+```bash
+# Activate virtual environment
+.\.venv\Scripts\activate
 
-## Contributing
+# Run the bot
+python main.py
+```
 
-Feel free to submit issues and enhancement requests!
+### Adding New Features
 
-## License
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
-This project is open source and available under the MIT License. 
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Bot not responding:**
+- Check if the bot token is correct
+- Ensure the bot is running without errors
+- Verify internet connection
+
+**Reminders not triggering:**
+- Check if the bot process is still running
+- Verify the time format is correct
+- Check the console for error messages
+
+**Multiple bot instances:**
+- Stop all Python processes: `taskkill /f /im python.exe`
+- Restart the bot using the provided scripts
+
+### Logs
+
+The bot outputs logs to the console. Common messages:
+- `🤖 Reminder Bot is starting...`
+- `Loaded X existing reminders`
+- `Error sending reminder: ...`
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📞 Support
+
+If you encounter any issues or have questions:
+1. Check the troubleshooting section
+2. Review the console logs
+3. Open an issue on GitHub
+
+---
+
+**Made with ❤️ for better productivity and organization!**
